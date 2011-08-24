@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="hello">Hello World, CodebitsActivity!</string>
-    <string name="app_name">Codebits</string>
+    <string name="app_name">SAPO Codebits Talk Proposals</string>
+    <string name="by">by</string>
+    <string name="votes">Votes:</string>
 </resources>

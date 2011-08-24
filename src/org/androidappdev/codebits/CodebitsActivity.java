@@ -21,7 +21,6 @@ package org.androidappdev.codebits;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -30,22 +29,19 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
-import android.app.Activity;
+import android.app.ListActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 
-public class CodebitsActivity extends Activity {
-	private static String TAG = "CODEBITS";
+public class CodebitsActivity extends ListActivity {
+	public static final String TAG = "CODEBITS";
 
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.main);
+		//setContentView(R.layout.main);
 		StringBuilder builder = new StringBuilder();
 		HttpClient client = new DefaultHttpClient();
 		HttpGet request = new HttpGet(
@@ -64,22 +60,19 @@ public class CodebitsActivity extends Activity {
 			Log.d(TAG, "EXCEPTION", e);
 		}
 
-		String[] talkTitles = null;
+		Talk[] talks = null;
 		try {
 			String text = builder.toString();
 			builder = new StringBuilder();
 			JSONArray jsonArray = new JSONArray(text);
-			talkTitles = new String[jsonArray.length()];
+			talks = new Talk[jsonArray.length()];
 			for (int i = 0; i < jsonArray.length(); i++) {
-				JSONObject jsonObject = jsonArray.getJSONObject(i);
-				talkTitles[i] = jsonObject.getString("title");
+				talks[i] = new Talk(jsonArray.getJSONObject(i));
 			}
 		} catch (JSONException e) {
 			Log.d(TAG, "EXCEPTION", e);
 		}
 
-		ListView listView = (ListView) findViewById(R.id.talks);
-		listView.setAdapter(new ArrayAdapter<String>(this,
-				android.R.layout.simple_list_item_1, talkTitles));
+		setListAdapter(new TalkArrayAdapter(this, talks));
 	}
 }
