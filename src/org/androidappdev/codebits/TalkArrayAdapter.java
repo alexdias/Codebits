@@ -19,6 +19,7 @@
 package org.androidappdev.codebits;
 
 import android.app.Activity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +30,13 @@ public class TalkArrayAdapter extends ArrayAdapter<Talk> {
 	private Activity context;
 	private Talk[] talks;
 
+	static class ViewHolder {
+		TextView title;
+		TextView speaker;
+		TextView upVotes;
+		TextView downVotes;
+	}
+
 	public TalkArrayAdapter(Activity context, Talk[] talks) {
 		super(context, R.layout.row_layout, talks);
 		this.context = context;
@@ -37,23 +45,31 @@ public class TalkArrayAdapter extends ArrayAdapter<Talk> {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		LayoutInflater inflater = context.getLayoutInflater();
-		View rowView = inflater.inflate(R.layout.row_layout, null, true);
-		// Title
-		TextView textView = (TextView) rowView.findViewById(R.id.title);
-		textView.setText(this.talks[position].getTitle());
-		// Speaker
-		textView = (TextView) rowView.findViewById(R.id.speaker);
-		textView.setText("(" + this.context.getString(R.string.by) + " "
+		// ViewHolder will buffer the access to the
+		// individual fields of the row layout.
+		ViewHolder holder = null;
+		// Recycle existing view if passed as parameter.
+		// This will save memory and time on Android.
+		View rowView = convertView;
+		if (rowView == null) {
+			LayoutInflater inflater = context.getLayoutInflater();
+			rowView = inflater.inflate(R.layout.row_layout, null, true);
+			holder = new ViewHolder();
+			holder.title = (TextView) rowView.findViewById(R.id.title);
+			holder.speaker = (TextView) rowView.findViewById(R.id.speaker);
+			holder.upVotes = (TextView) rowView.findViewById(R.id.up_votes);
+			holder.downVotes = (TextView) rowView.findViewById(R.id.down_votes);
+			rowView.setTag(holder);
+		} else {
+			holder = (ViewHolder) rowView.getTag();
+		}
+		holder.title.setText(this.talks[position].getTitle());
+		holder.speaker.setText("(" + this.context.getString(R.string.by) + " "
 				+ this.talks[position].getSpeaker() + ")");
-		// // Up votes
-		textView = (TextView) rowView.findViewById(R.id.up_votes);
-		textView.setText(new Integer(this.talks[position].getUpVotes())
+		holder.upVotes.setText(new Integer(this.talks[position].getUpVotes())
 				.toString());
-		// // Down votes
-		textView = (TextView) rowView.findViewById(R.id.down_votes);
-		textView.setText(new Integer(this.talks[position].getDownVotes())
-				.toString());
+		holder.downVotes.setText(new Integer(this.talks[position]
+				.getDownVotes()).toString());
 		return rowView;
 	}
 }
