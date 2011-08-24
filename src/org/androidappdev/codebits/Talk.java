@@ -35,6 +35,9 @@ public class Talk {
 	/** Number of down votes */
 	private int downVotes;
 
+	/** Description (abstract) */
+	private String description;
+
 	/**
 	 * Create a Talk from a JSON object.
 	 * @param jsonObject the JSON object with talk fields
@@ -45,6 +48,7 @@ public class Talk {
 		this.speaker = jsonObject.getString("user");
 		this.upVotes = Integer.valueOf(jsonObject.getString("up"));
 		this.downVotes = Integer.valueOf(jsonObject.getString("down"));
+		this.description = jsonObject.getString("description");
 	}
 	
 	/**
@@ -77,6 +81,14 @@ public class Talk {
 	 */
 	public int getDownVotes() {
 		return this.downVotes;
+	}
+
+	/**
+	 * Description (abstract)
+	 * @return talk's description (abstract)
+	 */
+	public String getDescription() {
+		return this.description;
 	}
 
 }

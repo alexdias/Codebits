@@ -30,18 +30,77 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import android.app.AlertDialog;
 import android.app.ListActivity;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ListView;
 
 public class CodebitsActivity extends ListActivity {
 	public static final String TAG = "CODEBITS";
+	public static final String TALK_POSITION = "TALK_POSITION";
+	private static Talk[] talks = null;
+
+	/**
+	 * Talk details
+	 * 
+	 * @param position
+	 *            position where the talk was in the list
+	 * @return a Talk object with the talk details
+	 */
+	public static Talk getTalk(int position) {
+		return talks[position];
+	}
+
+	/**
+	 * Check if we're connected
+	 * 
+	 * @param context
+	 * @return true if we're connected, false otherwise
+	 */
+	private static boolean isConnected(Context context) {
+		ConnectivityManager cm = (ConnectivityManager) context
+				.getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo networkInfo = null;
+		if (cm != null) {
+			networkInfo = cm.getActiveNetworkInfo();
+		}
+		return networkInfo == null ? false : networkInfo.isConnected();
+	}
+
+	private void showConnectionError(Context context) {
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setMessage(
+				context.getText(R.string.network_error) + "\n"
+						+ context.getText(R.string.failed_load))
+				.setCancelable(false)
+				.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+						CodebitsActivity.this.finish();
+					}
+				});
+		AlertDialog alert = builder.create();
+		alert.show();
+	}
 
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		//setContentView(R.layout.main);
+		if (!isConnected(this)) {
+			showConnectionError(this);
+		} else {
+			createView();
+		}
+	}
+
+	private void createView() {
 		StringBuilder builder = new StringBuilder();
 		HttpClient client = new DefaultHttpClient();
 		HttpGet request = new HttpGet(
@@ -60,19 +119,28 @@ public class CodebitsActivity extends ListActivity {
 			Log.d(TAG, "EXCEPTION", e);
 		}
 
-		Talk[] talks = null;
 		try {
 			String text = builder.toString();
 			builder = new StringBuilder();
 			JSONArray jsonArray = new JSONArray(text);
-			talks = new Talk[jsonArray.length()];
+			CodebitsActivity.talks = new Talk[jsonArray.length()];
 			for (int i = 0; i < jsonArray.length(); i++) {
-				talks[i] = new Talk(jsonArray.getJSONObject(i));
+				CodebitsActivity.talks[i] = new Talk(jsonArray.getJSONObject(i));
 			}
 		} catch (JSONException e) {
 			Log.d(TAG, "EXCEPTION", e);
 		}
 
 		setListAdapter(new TalkArrayAdapter(this, talks));
+
+	}
+
+	@Override
+	protected void onListItemClick(ListView l, View v, int position, long id) {
+		super.onListItemClick(l, v, position, id);
+		Intent intent = new Intent(getApplicationContext(),
+				TalkViewerActivity.class);
+		intent.putExtra(CodebitsActivity.TALK_POSITION, position);
+		startActivity(intent);
 	}
 }

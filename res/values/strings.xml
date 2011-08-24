@@ -22,4 +22,9 @@
     <string name="app_name">SAPO Codebits Talk Proposals</string>
     <string name="by">by</string>
     <string name="votes">Votes:</string>
+    <string name="talk_details">Talk details</string>
+    <string name="talk_title">Talk title</string>
+    <string name="talk_desc">Talk description</string>
+    <string name="network_error">Network error</string>
+    <string name="failed_load">Failed to load talks.</string>
 </resources>

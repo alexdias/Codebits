@@ -27,16 +27,35 @@
     <TextView
     		android:layout_width="fill_parent" 
     		android:layout_height="wrap_content"
-    		android:text="CALL FOR TALKS"
-    		android:gravity="center"
-    		android:textColor="#ffffff"
+    		android:text="@string/talk_title"
+    		android:textColor="#fff"
     		android:textStyle="bold"
+    		android:textSize="20sp"
 	/>
 
-	<ListView
-		android:id="@+id/talks" 
-    	android:layout_width="fill_parent" 
-    	android:layout_height="fill_parent"
+    <TextView android:id="@+id/talk_title"
+    		android:layout_width="fill_parent" 
+    		android:layout_height="wrap_content"
+    		android:textColor="#999"
+    		android:textSize="16sp"
+	/>
+
+    <TextView
+    		android:layout_width="fill_parent" 
+    		android:layout_height="wrap_content"
+    		android:text="@string/talk_desc"
+    		android:textColor="#fff"
+    		android:textStyle="bold"
+    		android:textSize="16sp"
+    		android:paddingTop="20dp"
+	/>
+
+    <TextView android:id="@+id/talk_description"
+    		android:layout_width="fill_parent" 
+    		android:layout_height="wrap_content"
+    		android:textColor="#999"
+			android:textSize="15sp"
+			android:scrollbars="vertical"
 	/>
 
 </LinearLayout>
