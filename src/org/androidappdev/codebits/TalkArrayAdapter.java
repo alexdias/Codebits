@@ -62,6 +62,12 @@ public class TalkArrayAdapter extends ArrayAdapter<Talk> {
 		} else {
 			holder = (ViewHolder) rowView.getTag();
 		}
+		if (this.talks[position].isApproved()) {
+			holder.title.setTextColor(0xFFFFFF00);
+		}
+		else {
+			holder.title.setTextColor(0xFF82BA51);
+		}
 		holder.title.setText(this.talks[position].getTitle());
 		holder.speaker.setText("(" + this.context.getString(R.string.by) + " "
 				+ this.talks[position].getSpeaker() + ")");

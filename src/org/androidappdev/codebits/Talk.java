@@ -38,6 +38,9 @@ public class Talk {
 	/** Description (abstract) */
 	private String description;
 
+	/** Approved? */
+	private boolean approved;
+
 	/**
 	 * Create a Talk from a JSON object.
 	 * @param jsonObject the JSON object with talk fields
@@ -49,6 +52,7 @@ public class Talk {
 		this.upVotes = Integer.valueOf(jsonObject.getString("up"));
 		this.downVotes = Integer.valueOf(jsonObject.getString("down"));
 		this.description = jsonObject.getString("description");
+		this.approved = jsonObject.getString("approved").equals("1");
 	}
 	
 	/**
@@ -89,6 +93,14 @@ public class Talk {
 	 */
 	public String getDescription() {
 		return this.description;
+	}
+
+	/**
+	 * Approved?
+	 * @return true if the talk was approved, false otherwise
+	 */
+	public boolean isApproved() {
+		return this.approved;
 	}
 
 }
