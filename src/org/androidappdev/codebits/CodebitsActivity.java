@@ -31,22 +31,18 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONException;
 
-import android.app.AlertDialog;
 import android.app.ListActivity;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 
 public class CodebitsActivity extends ListActivity {
 	public static final String TAG = "CODEBITS";
 	public static final String TALK_POSITION = "TALK_POSITION";
-	private static Talk[] talks = null; // TODO: refactor to don't need this array
+	private static Talk[] talks = null; // TODO: refactor to stop needing this array
 
 	static ArrayList<Talk> approvedTalks = new ArrayList<Talk>();
+	static ArrayList<Talk> ratedTalks = new ArrayList<Talk>();
 	static ArrayList<Talk> unratedTalks = new ArrayList<Talk>();
 	
 	/**
@@ -64,54 +60,25 @@ public class CodebitsActivity extends ListActivity {
 		return talks;
 	}
 
-	/**
-	 * Check if we're connected
-	 * 
-	 * @param context
-	 * @return true if we're connected, false otherwise
-	 */
-	private static boolean isConnected(Context context) {
-		ConnectivityManager cm = (ConnectivityManager) context
-				.getSystemService(Context.CONNECTIVITY_SERVICE);
-		NetworkInfo networkInfo = null;
-		if (cm != null) {
-			networkInfo = cm.getActiveNetworkInfo();
-		}
-		return networkInfo == null ? false : networkInfo.isConnected();
-	}
-
-	private void showConnectionError(Context context) {
-		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setMessage(
-				context.getText(R.string.network_error) + "\n"
-						+ context.getText(R.string.failed_load))
-				.setCancelable(false)
-				.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int id) {
-						CodebitsActivity.this.finish();
-					}
-				});
-		AlertDialog alert = builder.create();
-		alert.show();
-	}
 
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		if (!isConnected(this)) {
-			showConnectionError(this);
-		} else {
-			createView();
-		}
+		createView();
+
 	}
 
 	private void createView() {
 		setContentView(R.layout.callfortalks);
+		String token = getIntent().getStringExtra("TOKEN");
 		StringBuilder builder = new StringBuilder();
 		HttpClient client = new DefaultHttpClient();
-		HttpGet request = new HttpGet(
-				"https://services.sapo.pt/Codebits/calltalks");
+		String url = "https://services.sapo.pt/Codebits/calltalks";
+		if (token != null) {
+			url += "?token=" + token;
+		}
+		HttpGet request = new HttpGet(url);
 		try {
 			HttpResponse response = client.execute(request);
 			HttpEntity entity = response.getEntity();
@@ -136,6 +103,9 @@ public class CodebitsActivity extends ListActivity {
 				CodebitsActivity.talks[i] = t;
 				if (t.isApproved()) {
 					approvedTalks.add(t);
+				}
+				else if (t.isRated()) {
+					ratedTalks.add(t);
 				}
 				else {
 					unratedTalks.add(t);

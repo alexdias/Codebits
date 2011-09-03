@@ -29,16 +29,22 @@
     <application android:icon="@drawable/icon" android:label="@string/app_name">
         <activity android:name=".CodebitsActivity"
                   android:label="@string/app_name">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
         </activity>
 
         <activity android:name="org.androidappdev.codebits.TalkViewerActivity"
         		  android:label="@string/talk_details">
         </activity>
         
+        <activity android:name=".LoginActivity"
+        		  android:label="@string/app_name"
+        		  android:theme="@android:style/Theme.NoTitleBar">
+			<intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
         <!-- Tab activities -->
         <activity android:name=".CodebitsTabActivity"
         		  android:label="@string/app_name"

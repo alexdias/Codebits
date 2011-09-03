@@ -78,6 +78,12 @@
 			android:paddingRight="5dp"
 		/>
 
+		<ImageView android:id="@+id/rated"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:visibility="gone"
+		/>
+
 	</LinearLayout>
 	
 	</LinearLayout>

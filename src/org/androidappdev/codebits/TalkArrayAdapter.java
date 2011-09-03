@@ -21,10 +21,13 @@ package org.androidappdev.codebits;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class TalkArrayAdapter extends ArrayAdapter<Talk> {
@@ -36,6 +39,7 @@ public class TalkArrayAdapter extends ArrayAdapter<Talk> {
 		TextView speaker;
 		TextView upVotes;
 		TextView downVotes;
+		ImageView rated;
 	}
 
 	public TalkArrayAdapter(Activity context, List<Talk> talks) {
@@ -60,17 +64,33 @@ public class TalkArrayAdapter extends ArrayAdapter<Talk> {
 			holder.speaker = (TextView) rowView.findViewById(R.id.speaker);
 			holder.upVotes = (TextView) rowView.findViewById(R.id.up_votes);
 			holder.downVotes = (TextView) rowView.findViewById(R.id.down_votes);
+			holder.rated = (ImageView) rowView.findViewById(R.id.rated);
 			rowView.setTag(holder);
 		} else {
 			holder = (ViewHolder) rowView.getTag();
 		}
-		holder.title.setText(this.talks.get(position).getTitle());
+		Talk talk = this.talks.get(position);
+		holder.title.setText(talk.getTitle());
 		holder.speaker.setText("(" + this.context.getString(R.string.by) + " "
-				+ this.talks.get(position).getSpeaker() + ")");
-		holder.upVotes.setText(new Integer(this.talks.get(position).getUpVotes())
+				+ talk.getSpeaker() + ")");
+		holder.upVotes.setText(new Integer(talk.getUpVotes())
 				.toString());
-		holder.downVotes.setText(new Integer(this.talks.get(position)
+		holder.downVotes.setText(new Integer(talk
 				.getDownVotes()).toString());
+		if (talk.isRated()) {
+			holder.rated.setVisibility(View.VISIBLE);
+			setRatedImage(context, talk, holder);
+		}
 		return rowView;
+	}
+
+	private void setRatedImage(Context context, Talk talk, ViewHolder holder) {
+		Resources res = context.getResources();
+		if (talk.getRated().equals(Talk.UP)) {
+			holder.rated.setImageDrawable(res.getDrawable(R.drawable.thumbsup));
+		}
+		else if (talk.getRated().equals(Talk.DOWN)) {
+			holder.rated.setImageDrawable(res.getDrawable(R.drawable.thumbsdown));			
+		}		
 	}
 }

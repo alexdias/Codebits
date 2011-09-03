@@ -22,6 +22,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Talk {
+	public static final String UP = "up";
+	public static final String DOWN = "down";
 	
 	/** Title */
 	private String title;
@@ -41,6 +43,9 @@ public class Talk {
 	/** Approved? */
 	private boolean approved;
 
+	/** Rate */
+	private String rated;
+
 	/**
 	 * Create a Talk from a JSON object.
 	 * @param jsonObject the JSON object with talk fields
@@ -53,6 +58,7 @@ public class Talk {
 		this.downVotes = Integer.valueOf(jsonObject.getString("down"));
 		this.description = jsonObject.getString("description");
 		this.approved = jsonObject.getString("approved").equals("1");
+		this.rated = jsonObject.getString("rated"); // "up" or "down"
 	}
 	
 	/**
@@ -96,11 +102,27 @@ public class Talk {
 	}
 
 	/**
+	 * Rate
+	 * @return "up" or "down"
+	 */
+	public String getRated() {
+		return this.rated;
+	}
+
+	/**
 	 * Approved?
-	 * @return true if the talk was approved, false otherwise
+	 * @return true if the talk has been approved, false otherwise
 	 */
 	public boolean isApproved() {
 		return this.approved;
+	}
+
+	/**
+	 * Rated?
+	 * @return true if the talk has been rated, false otherwise
+	 */
+	public boolean isRated() {
+		return !this.rated.equals("none");
 	}
 
 }

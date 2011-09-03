@@ -18,17 +18,35 @@
 
 package org.androidappdev.codebits;
 
-import android.app.Activity;
+import android.app.ListActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ListView;
 import android.widget.TextView;
 
-public class RatedActivity extends Activity {
+public class RatedActivity extends ListActivity {
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		if (CodebitsActivity.ratedTalks.size() == 0) {
+			TextView textview = new TextView(this);
+			textview.setText("No talks rated yet or not logged in.");
+			setContentView(textview);
+		} else {
+			setContentView(R.layout.tab_layout);
+			setListAdapter(new TalkArrayAdapter(this,
+					CodebitsActivity.ratedTalks));
+		}
+	}
 
-		TextView textview = new TextView(this);
-		textview.setText("No talks rated yet or not logged in.");
-		setContentView(textview);
+	@Override
+	protected void onListItemClick(ListView l, View v, int position, long id) {
+		super.onListItemClick(l, v, position, id);
+		Intent intent = new Intent(getApplicationContext(),
+				TalkViewerActivity.class);
+		intent.putExtra(CodebitsActivity.TALK_POSITION, position);
+		startActivity(intent);
 	}
 }

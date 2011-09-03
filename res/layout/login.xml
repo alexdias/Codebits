@@ -18,44 +18,74 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>. 
  -->
  
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="#242824"
+    android:layout_gravity="center"
     >
     
-    <TextView
-    		android:layout_width="fill_parent" 
-    		android:layout_height="wrap_content"
-    		android:text="@string/talk_title"
-    		android:textColor="#fff"
-    		android:textStyle="bold"
-    		android:textSize="20sp"
+   	<include layout="@layout/talks_header" />
+    
+    <TextView 
+    	android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:text="E-Mail:"
+    	android:textColor="#FFF"
+    	android:textStyle="bold"
+    	android:layout_marginLeft="10dp"
+    />
+    
+    <EditText 
+    	android:id="@+id/email"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+    	android:layout_marginLeft="10dp"
+    	android:layout_marginRight="10dp"
+    />
+    
+    <TextView 
+    	android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:text="Password:"
+    	android:textColor="#FFF"
+    	android:textStyle="bold"
+    	android:layout_marginLeft="10dp"
+    />
+    
+    <EditText 
+    	android:id="@+id/password"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+    	android:layout_marginLeft="10dp"
+    	android:layout_marginRight="10dp"
+    	android:password="true"
+    />
+
+	<Button
+		android:id="@+id/login"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:text="LOGIN"
+		android:textColor="#FFF"
+		android:textStyle="bold"
+		android:background="#428A31"
+		android:padding="10dp" 
+    	android:layout_margin="10dp"
+	/>
+    
+	<Button
+		android:id="@+id/nologin"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:text="ENTER WITHOUT LOGIN"
+		android:textColor="#FFF"
+		android:textStyle="bold"
+		android:background="#428A31"
+		android:padding="10dp" 
+    	android:layout_margin="10dp"
 	/>
 
-    <TextView android:id="@+id/talk_title"
-    		android:layout_width="fill_parent" 
-    		android:layout_height="wrap_content"
-    		android:textColor="#999"
-    		android:textSize="16sp"
-	/>
 
-    <TextView
-    		android:layout_width="fill_parent" 
-    		android:layout_height="wrap_content"
-    		android:text="@string/talk_desc"
-    		android:textColor="#fff"
-    		android:textStyle="bold"
-    		android:textSize="16sp"
-    		android:paddingTop="20dp"
-	/>
-
-    <TextView android:id="@+id/talk_description"
-    		android:layout_width="fill_parent" 
-    		android:layout_height="wrap_content"
-    		android:textColor="#999"
-			android:textSize="15sp"
-			android:scrollbars="vertical"
-	/>
-
-</LinearLayout>
+</TableLayout>
