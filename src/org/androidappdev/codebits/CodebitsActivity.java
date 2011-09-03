@@ -101,6 +101,7 @@ public class CodebitsActivity extends ListActivity {
 	}
 
 	private void createView() {
+		setContentView(R.layout.callfortalks);
 		StringBuilder builder = new StringBuilder();
 		HttpClient client = new DefaultHttpClient();
 		HttpGet request = new HttpGet(
@@ -132,7 +133,6 @@ public class CodebitsActivity extends ListActivity {
 		}
 
 		setListAdapter(new TalkArrayAdapter(this, talks));
-
 	}
 
 	@Override

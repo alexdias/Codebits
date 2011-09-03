@@ -51,7 +51,7 @@ public class TalkArrayAdapter extends ArrayAdapter<Talk> {
 		// This will save memory and time on Android.
 		View rowView = convertView;
 		if (rowView == null) {
-			LayoutInflater inflater = context.getLayoutInflater();
+			LayoutInflater inflater = this.context.getLayoutInflater();
 			rowView = inflater.inflate(R.layout.row_layout, null, true);
 			holder = new ViewHolder();
 			holder.title = (TextView) rowView.findViewById(R.id.title);

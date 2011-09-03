@@ -18,13 +18,28 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>. 
  -->
 
-<resources>
-    <string name="app_name">Codebits Call For Talks</string>
-    <string name="by">by</string>
-    <string name="votes">Votes:</string>
-    <string name="talk_details">Talk details</string>
-    <string name="talk_title">Talk title</string>
-    <string name="talk_desc">Talk description</string>
-    <string name="network_error">Network error</string>
-    <string name="failed_load">Failed to load talks.</string>
-</resources>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="horizontal"
+    android:gravity="center"
+    android:background="@drawable/bg_titlebar"> 
+ 
+ 	<ImageView
+ 		android:layout_width="wrap_content"
+	    android:layout_height="fill_parent"
+ 	 	android:src="@drawable/ico_robot"
+ 	 	android:paddingRight="10dp"
+ 	 	android:layout_gravity="center"
+ 	/>
+ 
+	<TextView
+	    android:layout_width="wrap_content"
+	    android:layout_height="fill_parent"
+	    android:textSize="16sp"
+		android:textColor="#FFFFFF"
+		android:text="CALL FOR TALKS"
+		android:gravity="center"
+		android:textStyle="bold"	/>
+
+</LinearLayout>
