@@ -21,7 +21,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="org.androidappdev.codebits"
       android:versionCode="2" android:versionName="0.2">
-    <uses-sdk android:minSdkVersion="3" android:targetSdkVersion="4" />
+    <uses-sdk android:minSdkVersion="4" android:targetSdkVersion="4" />
     
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -29,14 +29,29 @@
     <application android:icon="@drawable/icon" android:label="@string/app_name">
         <activity android:name=".CodebitsActivity"
                   android:label="@string/app_name">
+        </activity>
+
+        <activity android:name="org.androidappdev.codebits.TalkViewerActivity"
+        		  android:label="@string/talk_details">
+        </activity>
+        
+        <!-- Tab activities -->
+        <activity android:name=".CodebitsTabActivity"
+        		  android:label="@string/app_name"
+        		  android:theme="@android:style/Theme.NoTitleBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name="org.androidappdev.codebits.TalkViewerActivity"
-        		  android:label="@string/talk_details">
+        <activity android:name=".ApprovedActivity"
+        		  android:label="@string/approved">
+        </activity>
+        <activity android:name=".RatedActivity"
+        		  android:label="@string/rated">
+        </activity>
+        <activity android:name=".UnratedActivity"
+        		  android:label="@string/unrated">
         </activity>
 
     </application>

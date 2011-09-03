@@ -18,19 +18,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>. 
  -->
 
-<resources>
-    <string name="app_name">Codebits Call For Talks</string>
-    <string name="by">by</string>
-    <string name="votes">Votes:</string>
-    <string name="talk_details">Talk details</string>
-    <string name="talk_title">Talk title</string>
-    <string name="talk_desc">Talk description</string>
-    <string name="network_error">Network error</string>
-    <string name="failed_load">Failed to load talks.</string>
-
-	<!-- Tabs Labels -->
-    <string name="approved">APPROVED</string>
-    <string name="rated">RATED</string>
-    <string name="unrated">UNRATED</string>
-	
-</resources>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/tab_indicator"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:text="Approved" />
