@@ -21,6 +21,7 @@ package org.androidappdev.codebits;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -39,14 +40,15 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.ListView;
 
 public class CodebitsActivity extends ListActivity {
 	public static final String TAG = "CODEBITS";
 	public static final String TALK_POSITION = "TALK_POSITION";
-	private static Talk[] talks = null;
+	private static Talk[] talks = null; // TODO: refactor to don't need this array
 
+	static ArrayList<Talk> approvedTalks = new ArrayList<Talk>();
+	static ArrayList<Talk> unratedTalks = new ArrayList<Talk>();
+	
 	/**
 	 * Talk details
 	 * 
@@ -56,6 +58,10 @@ public class CodebitsActivity extends ListActivity {
 	 */
 	public static Talk getTalk(int position) {
 		return talks[position];
+	}
+
+	public static Talk[] getTalks() {
+		return talks;
 	}
 
 	/**
@@ -126,21 +132,21 @@ public class CodebitsActivity extends ListActivity {
 			JSONArray jsonArray = new JSONArray(text);
 			CodebitsActivity.talks = new Talk[jsonArray.length()];
 			for (int i = 0; i < jsonArray.length(); i++) {
-				CodebitsActivity.talks[i] = new Talk(jsonArray.getJSONObject(i));
+				Talk t = new Talk(jsonArray.getJSONObject(i));
+				CodebitsActivity.talks[i] = t;
+				if (t.isApproved()) {
+					approvedTalks.add(t);
+				}
+				else {
+					unratedTalks.add(t);
+				}
 			}
 		} catch (JSONException e) {
 			Log.d(TAG, "EXCEPTION", e);
 		}
-
-		setListAdapter(new TalkArrayAdapter(this, talks));
-	}
-
-	@Override
-	protected void onListItemClick(ListView l, View v, int position, long id) {
-		super.onListItemClick(l, v, position, id);
-		Intent intent = new Intent(getApplicationContext(),
-				TalkViewerActivity.class);
-		intent.putExtra(CodebitsActivity.TALK_POSITION, position);
+		Intent intent = new Intent(getApplicationContext(), 
+				CodebitsTabActivity.class);
 		startActivity(intent);
 	}
+
 }

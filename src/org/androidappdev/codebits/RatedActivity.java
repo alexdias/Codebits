@@ -28,7 +28,7 @@ public class RatedActivity extends Activity {
 		super.onCreate(savedInstanceState);
 
 		TextView textview = new TextView(this);
-		textview.setText("This is the Rated tab");
+		textview.setText("No talks rated yet or not logged in.");
 		setContentView(textview);
 	}
 }

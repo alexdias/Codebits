@@ -18,6 +18,8 @@
 
 package org.androidappdev.codebits;
 
+import java.util.List;
+
 import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,7 +29,7 @@ import android.widget.TextView;
 
 public class TalkArrayAdapter extends ArrayAdapter<Talk> {
 	private Activity context;
-	private Talk[] talks;
+	private List<Talk> talks;
 
 	static class ViewHolder {
 		TextView title;
@@ -36,7 +38,7 @@ public class TalkArrayAdapter extends ArrayAdapter<Talk> {
 		TextView downVotes;
 	}
 
-	public TalkArrayAdapter(Activity context, Talk[] talks) {
+	public TalkArrayAdapter(Activity context, List<Talk> talks) {
 		super(context, R.layout.row_layout, talks);
 		this.context = context;
 		this.talks = talks;
@@ -62,18 +64,12 @@ public class TalkArrayAdapter extends ArrayAdapter<Talk> {
 		} else {
 			holder = (ViewHolder) rowView.getTag();
 		}
-		if (this.talks[position].isApproved()) {
-			holder.title.setTextColor(0xFFFFFF00);
-		}
-		else {
-			holder.title.setTextColor(0xFF82BA51);
-		}
-		holder.title.setText(this.talks[position].getTitle());
+		holder.title.setText(this.talks.get(position).getTitle());
 		holder.speaker.setText("(" + this.context.getString(R.string.by) + " "
-				+ this.talks[position].getSpeaker() + ")");
-		holder.upVotes.setText(new Integer(this.talks[position].getUpVotes())
+				+ this.talks.get(position).getSpeaker() + ")");
+		holder.upVotes.setText(new Integer(this.talks.get(position).getUpVotes())
 				.toString());
-		holder.downVotes.setText(new Integer(this.talks[position]
+		holder.downVotes.setText(new Integer(this.talks.get(position)
 				.getDownVotes()).toString());
 		return rowView;
 	}

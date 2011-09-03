@@ -18,17 +18,27 @@
 
 package org.androidappdev.codebits;
 
-import android.app.Activity;
+import android.app.ListActivity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.widget.TextView;
+import android.view.View;
+import android.widget.ListView;
 
-public class UnratedActivity extends Activity {
+public class UnratedActivity extends ListActivity {
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setContentView(R.layout.tab_layout);
+		setListAdapter(new TalkArrayAdapter(this, CodebitsActivity.unratedTalks));
+	}
 
-		TextView textview = new TextView(this);
-		textview.setText("This is the Unrated tab");
-		setContentView(textview);
+	@Override
+	protected void onListItemClick(ListView l, View v, int position, long id) {
+		super.onListItemClick(l, v, position, id);
+		Intent intent = new Intent(getApplicationContext(),
+				TalkViewerActivity.class);
+		intent.putExtra(CodebitsActivity.TALK_POSITION, position);
+		startActivity(intent);
 	}
 }
