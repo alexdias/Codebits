@@ -18,7 +18,8 @@
 
 package org.androidappdev.codebits;
 
-import java.util.List;
+import java.util.ArrayList;
+import java.util.Collection;
 
 import android.app.Activity;
 import android.content.Context;
@@ -32,7 +33,6 @@ import android.widget.TextView;
 
 public class TalkArrayAdapter extends ArrayAdapter<Talk> {
 	private Activity context;
-	private List<Talk> talks;
 
 	static class ViewHolder {
 		TextView title;
@@ -42,10 +42,9 @@ public class TalkArrayAdapter extends ArrayAdapter<Talk> {
 		ImageView rated;
 	}
 
-	public TalkArrayAdapter(Activity context, List<Talk> talks) {
-		super(context, R.layout.row_layout, talks);
+	public TalkArrayAdapter(Activity context, Collection<Talk> talks) {
+		super(context, R.layout.row_layout, new ArrayList<Talk>(talks));
 		this.context = context;
-		this.talks = talks;
 	}
 
 	@Override
@@ -69,7 +68,7 @@ public class TalkArrayAdapter extends ArrayAdapter<Talk> {
 		} else {
 			holder = (ViewHolder) rowView.getTag();
 		}
-		Talk talk = this.talks.get(position);
+		Talk talk = getItem(position);
 		holder.title.setText(talk.getTitle());
 		holder.speaker.setText("(" + this.context.getString(R.string.by) + " "
 				+ talk.getSpeaker() + ")");

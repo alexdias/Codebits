@@ -46,7 +46,8 @@ public class RatedActivity extends ListActivity {
 		super.onListItemClick(l, v, position, id);
 		Intent intent = new Intent(getApplicationContext(),
 				TalkViewerActivity.class);
-		intent.putExtra(CodebitsActivity.TALK_POSITION, position);
+		intent.putExtra(CodebitsActivity.TALK_ID, 
+				CodebitsActivity.ratedTalks.get(position).getId());
 		startActivity(intent);
 	}
 }

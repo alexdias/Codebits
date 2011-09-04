@@ -25,6 +25,9 @@ public class Talk {
 	public static final String UP = "up";
 	public static final String DOWN = "down";
 	
+	/** Id */
+	private String id;
+	
 	/** Title */
 	private String title;
 	
@@ -52,6 +55,7 @@ public class Talk {
 	 * @throws JSONException
 	 */
 	public Talk(JSONObject jsonObject) throws JSONException {
+		this.id = jsonObject.getString("id");
 		this.title = jsonObject.getString("title");
 		this.speaker = jsonObject.getString("user");
 		this.upVotes = Integer.valueOf(jsonObject.getString("up"));
@@ -59,6 +63,14 @@ public class Talk {
 		this.description = jsonObject.getString("description");
 		this.approved = jsonObject.getString("approved").equals("1");
 		this.rated = jsonObject.getString("rated"); // "up" or "down"
+	}
+
+	/**
+	 * Id
+	 * @return talk id.
+	 */
+	public String getId() {
+		return this.id;
 	}
 	
 	/**
