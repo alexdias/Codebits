@@ -19,11 +19,14 @@
 package org.androidappdev.codebits;
 
 import android.app.TabActivity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.widget.LinearLayout;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.TabHost;
+import android.widget.TextView;
 
 public class CodebitsTabActivity extends TabActivity {
 	@Override
@@ -42,7 +45,8 @@ public class CodebitsTabActivity extends TabActivity {
 		// Initialize a TabSpec for each tab and add it to the TabHost
 		spec = tabHost
 				.newTabSpec("unrated")
-				.setIndicator(res.getString(R.string.unrated))
+				.setIndicator(
+						createTabView(this, res.getString(R.string.unrated)))
 				.setContent(intent);
 		tabHost.addTab(spec);
 
@@ -50,21 +54,24 @@ public class CodebitsTabActivity extends TabActivity {
 		intent = new Intent().setClass(this, RatedActivity.class);
 		spec = tabHost
 				.newTabSpec("rated")
-				.setIndicator(res.getString(R.string.rated))
+				.setIndicator(
+						createTabView(this, res.getString(R.string.rated)))
 				.setContent(intent);
 		tabHost.addTab(spec);
 
 		intent = new Intent().setClass(this, ApprovedActivity.class);
 		spec = tabHost
 				.newTabSpec("approved")
-				.setIndicator(res.getString(R.string.approved))
+				.setIndicator(
+						createTabView(this, res.getString(R.string.approved)))
 				.setContent(intent);
 		tabHost.addTab(spec);
+	}
 
-		// This is a hack for now
-		tabHost.getTabWidget().getChildAt(0).setLayoutParams(new LinearLayout.LayoutParams(150, 50));
-	    tabHost.getTabWidget().getChildAt(1).setLayoutParams(new LinearLayout.LayoutParams(150, 50));
-	    tabHost.getTabWidget().getChildAt(2).setLayoutParams(new LinearLayout.LayoutParams(150, 50));
-	    
+	private static View createTabView(final Context context, final String text) {
+		View view = LayoutInflater.from(context).inflate(R.layout.tab_bg, null);
+		TextView tv = (TextView) view.findViewById(R.id.tabsText);
+		tv.setText(text);
+		return view;
 	}
 }

@@ -27,16 +27,16 @@
  
  	<ImageView
  		android:layout_width="wrap_content"
-	    android:layout_height="fill_parent"
+	  android:layout_height="fill_parent"
  	 	android:src="@drawable/ico_robot"
  	 	android:paddingRight="10dp"
  	 	android:layout_gravity="center"
  	/>
  
 	<TextView
-	    android:layout_width="wrap_content"
-	    android:layout_height="fill_parent"
-	    android:textSize="16sp"
+	  android:layout_width="wrap_content"
+	  android:layout_height="fill_parent"
+	  android:textSize="16sp"
 		android:textColor="#FFFFFF"
 		android:text="CALL FOR TALKS"
 		android:gravity="center"

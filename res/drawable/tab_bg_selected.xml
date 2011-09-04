@@ -18,18 +18,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>. 
  -->
 
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
-
-	<include layout="@layout/talks_header" />
-   
-	   <ListView
-	    android:id="@android:id/list"
-	    android:layout_width="fill_parent"
-	    android:layout_height="fill_parent"
-	    android:divider="@android:color/transparent"
-	    android:dividerHeight="5dp"
-	   />
-
-</TableLayout>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+  android:shape="rectangle">
+  <solid android:color="#82ba51" />
+</shape>
