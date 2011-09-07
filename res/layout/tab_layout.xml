@@ -18,9 +18,25 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>. 
  -->
 
-<ListView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent">
+
+<ListView
 	    android:id="@android:id/list"
 	    android:layout_width="fill_parent"
 	    android:layout_height="fill_parent"
 	    android:divider="@android:color/transparent"
 	    android:dividerHeight="5dp" />
+	    
+  <!-- Here is the view to show if the list is empty -->
+	<TextView android:id="@id/android:empty" 
+	  android:layout_width="fill_parent"
+	  android:layout_height="fill_parent" 
+	  android:text="@string/no_login"
+	  android:gravity="center"
+	  android:textStyle="bold"
+	  android:textSize="20dp"
+	  android:textColor="#fff" />
+        
+</LinearLayout>

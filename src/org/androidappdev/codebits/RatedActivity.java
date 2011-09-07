@@ -23,19 +23,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
-import android.widget.TextView;
 
 public class RatedActivity extends ListActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setContentView(R.layout.tab_layout);
 		if (CodebitsActivity.ratedTalks.size() == 0) {
-			TextView textview = new TextView(this);
-			textview.setText("No talks rated yet or not logged in.");
-			setContentView(textview);
 		} else {
-			setContentView(R.layout.tab_layout);
 			setListAdapter(new TalkArrayAdapter(this,
 					CodebitsActivity.ratedTalks));
 		}

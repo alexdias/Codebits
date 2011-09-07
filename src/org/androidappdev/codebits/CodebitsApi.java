@@ -102,8 +102,8 @@ public class CodebitsApi {
 	 * @throws JSONException
 	 */
 	public static List<Talk> listSubmissions(String token) {
+		LinkedList<Talk> result = new LinkedList<Talk>();
 		try {
-			LinkedList<Talk> result = new LinkedList<Talk>();
 			String url = "https://services.sapo.pt/Codebits/calltalks";
 			if (token != null) {
 				url += "?token=" + token;
@@ -112,10 +112,9 @@ public class CodebitsApi {
 			for (int i = 0; i < jsonArray.length(); i++) {
 				result.add(new Talk(jsonArray.getJSONObject(i)));
 			}
-			return result;
 		} catch (JSONException e) {
 			Log.d(TAG, "JSONException", e);
 		}
-		return null;
+		return result;
 	}
 }

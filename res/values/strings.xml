@@ -27,6 +27,7 @@
     <string name="talk_desc">Talk description</string>
     <string name="network_error">Network error</string>
     <string name="failed_load">Failed to load talks.</string>
+    <string name="no_login">You haven\'t rated any talks or you\'re not logged in.</string>
 
 	<!-- Tabs Labels -->
     <string name="approved">APPROVED</string>
