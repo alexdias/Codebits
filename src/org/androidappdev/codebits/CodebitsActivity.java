@@ -61,6 +61,7 @@ public class CodebitsActivity extends ListActivity {
 		}
 		Intent intent = new Intent(getApplicationContext(),
 				CodebitsTabActivity.class);
+		intent.putExtra("token", token);
 		startActivity(intent);
 	}
 

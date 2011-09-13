@@ -40,6 +40,9 @@ public class UnratedActivity extends ListActivity {
 				TalkViewerActivity.class);
 		intent.putExtra(CodebitsActivity.TALK_ID, 
 				CodebitsActivity.unratedTalks.get(position).getId());
+		intent.putExtra("source", "unrated");
+		if(getIntent().hasExtra("token"))
+			intent.putExtra("token", getIntent().getStringExtra("token"));
 		startActivity(intent);
 	}
 }

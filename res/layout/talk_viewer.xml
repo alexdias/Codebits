@@ -53,9 +53,15 @@
     <TextView android:id="@+id/talk_description"
     		android:layout_width="fill_parent" 
     		android:layout_height="wrap_content"
+    		android:layout_weight="1"
     		android:textColor="#999"
 			android:textSize="15sp"
 			android:scrollbars="vertical"
 	/>
+    <RelativeLayout android:layout_height="wrap_content" android:id="@+id/relativeLayout1" android:layout_width="match_parent">
+        <ImageButton android:layout_alignParentLeft="true" android:src="@drawable/thumbsup" android:layout_width="wrap_content" android:id="@+id/imageButton1" android:layout_height="wrap_content" ></ImageButton>
+        <ImageButton android:src="@drawable/thumbsdown" android:layout_width="wrap_content" android:layout_alignParentRight="true" android:id="@+id/imageButton2" android:layout_height="wrap_content" ></ImageButton>
+    </RelativeLayout>
+   
 
 </LinearLayout>

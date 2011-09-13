@@ -41,6 +41,7 @@ public class ApprovedActivity extends ListActivity {
 				TalkViewerActivity.class);
 		intent.putExtra(CodebitsActivity.TALK_ID, 
 				CodebitsActivity.approvedTalks.get(position).getId());
+		intent.putExtra("source", "approved");
 		startActivity(intent);
 	}
 }
